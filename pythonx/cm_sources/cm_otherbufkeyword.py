@@ -21,6 +21,7 @@ class Source(Base):
 
         def __init__(self):
             self.changed = False
+            self.changedtick = None
             self.deleted = False
             self.words = set()
 
@@ -57,7 +58,8 @@ class Source(Base):
     def cm_event(self, event, ctx, *args):
         if event == 'BufLeave':
             buf = self._buffers[ctx['bufnr']]
-            buf.changed = True
+            if buf.changedtick != ctx['changedtick']:
+                buf.changed = True
         self.update()
 
     def cm_refresh(self, info, ctx):
