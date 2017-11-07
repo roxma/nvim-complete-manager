@@ -3,7 +3,7 @@
 # Author: Stefan Haller <fgrsnau@gmail.com>
 
 from cm import register_source
-register_source(name='cm-otherbufkeyword',
+register_source(name='cm-otherbuf',
                 priority=4,
                 abbreviation='Bufs',
                 events=['BufAdd', 'BufDelete', 'BufLeave'],)
