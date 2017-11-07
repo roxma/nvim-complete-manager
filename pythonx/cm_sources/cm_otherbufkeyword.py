@@ -65,12 +65,12 @@ class Source(Base):
     def cm_refresh(self, info, ctx):
         def gen():
             for num, buf in self._buffers.items():
+                bufname = self.nvim.buffers[num].name
                 # current buffer is handled by different source
                 if num != ctx['bufnr']:
                     for word in buf.words:
-                        yield word
+                        yield dict(word=word, icase=1, info=bufname)
 
-        matches = (dict(word=word, icase=1) for word in gen())
-        matches = self.matcher.process(info, ctx, ctx['startcol'], matches)
+        matches = self.matcher.process(info, ctx, ctx['startcol'], gen())
 
         self.complete(info, ctx, ctx['startcol'], matches)
