@@ -194,6 +194,19 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 ```
 
+- Show and auto-close docstrings for Python completion
+
+```vim
+    " Add preview to see docstrings in the complete window.
+    let g:cm_completeopt = 'menu,menuone,noinsert,noselect,preview'
+
+    " Close the preview window automatically on InsertLeave
+    " https://github.com/davidhalter/jedi-vim/blob/eba90e615d73020365d43495fca349e5a2d4f995/ftplugin/python/jedi.vim#L44
+    augroup ncm_preview
+        autocmd! InsertLeave <buffer> if pumvisible() == 0|pclose|endif
+    augroup END
+```
+
 - If 'omnifunc' is the only available option, you may register it as a source
   for NCM.
  
