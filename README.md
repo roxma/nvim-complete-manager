@@ -194,7 +194,7 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 ```
 
-- Show and auto-close docstrings for Python completion
+- Show and auto-close docstrings for Python completion (See [here](https://stackoverflow.com/q/3105307/2958070) for more information.
 
 ```vim
     " Add preview to see docstrings in the complete window.
