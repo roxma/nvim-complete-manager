@@ -13,6 +13,10 @@ if 'VIRTUAL_ENV' in os.environ:
     py2 = os.path.join(os.environ['VIRTUAL_ENV'], 'bin', 'python2')
     if os.path.isfile(py2):
         py = 'python2'
+if 'CONDA_PREFIX' in os.environ:
+    py2 = os.path.join(os.environ['CONDA_PREFIX'], 'bin', 'python2')
+    if os.path.isfile(py2):
+        py = 'python2'
 
 from cm import register_source, getLogger, Base
 register_source(name='cm-jedi',
