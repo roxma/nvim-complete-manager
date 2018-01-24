@@ -340,6 +340,11 @@ g:cm_completeopt
 			The value of 'completeopt' when NCM is active.
 			Default: "menu,menuone,noinsert,noselect"
 
+						*g:cm_filepath_strip_extension*
+g:cm_filepath_strip_extension
+			Strip file extension when completing filepaths.
+			Default: 0
+
 ==============================================================================
 5. API						*NCM-API*
 

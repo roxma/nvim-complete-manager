@@ -27,6 +27,7 @@ class Source(Base):
 
     def __init__(self, nvim):
         super(Source, self).__init__(nvim)
+        self._strip_extension = self.nvim.vars['cm_filepath_strip_extension']
 
     def cm_refresh(self, info, ctx):
 
@@ -73,6 +74,11 @@ class Source(Base):
                     seen.add(p)
                     word = os.path.basename(p)
                     menu = '~' + label
+                    if self._strip_extension:
+                        [fname, ext] = os.path.splitext(word)
+                        word = fname
+                        if ext:
+                            menu += ' [' + ext[1:] + ']'
                     if expanded:
                         menu += '~ ' + p
                     matches.append(dict(word=word, icase=1, menu=menu, dup=1))
