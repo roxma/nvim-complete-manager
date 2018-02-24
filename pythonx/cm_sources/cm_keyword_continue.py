@@ -169,6 +169,10 @@ class Source(Base):
                 hint += ' ...'
             e['menu'] = e['word'] + hint
             e['word'] = e['_rest_of_line']
+            
+            # devicon support
+            e['sourceName'] = "keyword"
+            e['kind'] = "kw"
             matches.insert(1,e)
 
         # if not matches:

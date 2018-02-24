@@ -74,7 +74,7 @@ class Source(Base):
         # incremental refresh
         self.refresh_keyword(ctx,False)
 
-        matches = (dict(word=word,icase=1)  for word in self._words)
+        matches = (dict(word=word,icase=1, sourceName="keyword", kind="kw")  for word in self._words)
         matches = self.matcher.process(info, ctx, ctx['startcol'], matches)
 
         self.complete(info, ctx, ctx['startcol'], matches)

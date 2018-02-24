@@ -12,7 +12,7 @@ func! cm#sources#ultisnips#cm_refresh(opt, ctx)
 
 	let l:snips = UltiSnips#SnippetsInCurrentScope()
 
-	let l:matches = map(keys(l:snips),'{"word":v:val, "dup":1, "icase":1, "info": l:snips[v:val], "is_snippet": 1}')
+	let l:matches = map(keys(l:snips),'{"word":v:val, "dup":1, "icase":1, "info": l:snips[v:val], "is_snippet": 1, "sourceName":"Snip", "kind":"Snip"}')
 
 	call cm#complete(a:opt, a:ctx, a:ctx['startcol'], l:matches)
 

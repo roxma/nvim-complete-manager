@@ -1,0 +1,88 @@
+*nvim-completion-manager_icon.txt*    nerd font support for ncm
+
+                    nerdfont make ncm more beautiful
+
+Author: mailunjiye <mailunjiye@gmail.com>
+License: MIT
+
+nvim-completion-manager_icon		    *nvim-completion-manager_icon* *NCM-icon*
+
+1. Introduction					|NCM_icon-introduction|
+2. Settings					|NCM_icon-settings|
+3. API						|NCM_icon-API|
+
+==============================================================================
+1. Introduction					*NCM_icon-introduction*
+
+Nerdfont makes completion menu more beautiful
+
+==============================================================================
+2. Settings					*NCM_icon-settings*
+
+						*g:cm_icon_kind_model*
+g:cm_icon_kind_model
+			The module of the behavior.
+			0: no any words about complete kind
+			1: display complete kind in ascii
+			2: display complete kind in Nerdfont
+			   if the kind no in *g:cm_icon_kind_dict*,
+			   it will display like model 1
+
+			Default: 0
+
+						*g:cm_icon_kind_dict*
+g:cm_icon_kind_dict
+			A Dict maintain the complete kind and nerdfont.
+			You can change the icon what you like.
+
+			Struct:
+				{
+				'SourceName1': {
+					kindname1: nerdfont,
+					kindname2: nerdfont,
+				       }
+				'SourceName2': {
+					kindname1: nerdfont,
+					kindname2: nerdfont,
+				       }
+				}
+			Buildin like that:
+			let g:cm_icon_kind_dict = {
+				    \   "NoName":{
+				    \           },
+				    \   "cm_filepath":{
+				    \           "path":"",
+				    \           },
+				    \   "Snip":{
+				    \           "Snip":"",
+				    \           },
+				    \   "jedi":{
+				    \           "module":"",
+				    \           "function":"",
+				    \           "statement":"",
+				    \           "class":"",
+				    \           "instance":"",
+				    \           },
+				    \ }
+
+==============================================================================
+3. API						*NCM_icon-API*
+
+It is easy to make your sources support this feature.
+At First, you must know how to write a ncm source.
+you can refere *NCM-source_example*
+
+You change that lines can support this feature:
+
+    def cm_refresh(self,info,ctx):
+	# add key : SourceName and kind
+        matches = [dict(word=':'+k+':', menu=chr(v), SourceName='Emoj',
+			kind='emoj') for k,v in CODES]
+        self.complete(info, ctx, ctx['startcol'], matches)
+
+And Then add the nerdfont in *g:cm_icon_kind_dict*
+
+let g:cm_icon_kind_dict['Emoj'] = { "emjo":"" }
+
+==============================================================================
+vim: tw=78:ts=8:softtabstop=8:sw=8:ft=help:norl:noexpandtab:fen:noet:
