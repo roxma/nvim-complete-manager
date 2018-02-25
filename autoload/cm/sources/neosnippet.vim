@@ -10,7 +10,7 @@ endfunc
 
 function! cm#sources#neosnippet#cm_refresh(info, ctx)
 	let l:snips = values(neosnippet#helpers#get_completion_snippets())
-	let l:matches = map(l:snips, '{"word":v:val["word"], "dup":1, "icase":1, "menu": "Snip: " . v:val["menu_abbr"], "is_snippet": 1, "sourceName":"Snip", "kind":"Snip"}')
+	let l:matches = map(l:snips, '{"word":v:val["word"], "dup":1, "icase":1, "menu": "Snip: " . v:val["menu_abbr"], "is_snippet": 1,"kind":"Snip"}')
 	call cm#complete(a:info, a:ctx, a:ctx['startcol'], l:matches)
 endfunction
 

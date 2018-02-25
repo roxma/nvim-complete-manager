@@ -76,7 +76,7 @@ class Source(Base):
                     if expanded:
                         menu += '~ ' + p
                     # TODO : support  ryanoasis/vim-devicons in matches.menu
-                    matches.append(dict(word=word, icase=1, menu=menu, dup=1, kind='path', sourceName='cm_filepath'))
+                    matches.append(dict(word=word, icase=1, menu=menu, dup=1, kind='path'))
             except Exception as ex:
                 self.logger.info('exception on listing joined_dir [%s], %s', joined_dir, ex)
                 continue

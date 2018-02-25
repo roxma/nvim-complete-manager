@@ -32,7 +32,7 @@ let g:cm_icon_kind_dict = {
             \   "Go":{
             \           "fun":"",
             \           },
-            \   "jedi":{
+            \   "cm-jedi":{
             \           "module":"",
             \           "function":"",
             \           "statement":"",

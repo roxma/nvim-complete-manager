@@ -86,7 +86,7 @@ class Source(Base):
 
         startcol = ctx['startcol']
 
-        matches = (dict(word=word,icase=1, sourceName="tmux",kind="tmux")  for word in self._words)
+        matches = (dict(word=word,icase=1,kind="tmux")  for word in self._words)
         matches = self.matcher.process(info, ctx, startcol, matches)
 
         self.complete(info, ctx, ctx['startcol'], matches)

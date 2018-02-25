@@ -87,7 +87,7 @@ class Source(Base):
 
         if re.search(r'^\s*(?!from|import).*?[(,]\s*$', typed):
             if signature_text:
-                matches = [dict(word='',empty=1,abbr=signature_text,dup=1,sourceName="jedi",kind="module"),]
+                matches = [dict(word='',empty=1,abbr=signature_text,dup=1,kind="module"),]
                 # refresh=True
                 # call signature popup doesn't need to be cached by the framework
                 self.complete(info, ctx, ctx['col'], matches, True)
@@ -107,7 +107,6 @@ class Source(Base):
                         dup=1,
                         menu=complete.description,
                         info=complete.docstring(),
-                        sourceName='jedi',
                         kind=complete.type
                         )
 

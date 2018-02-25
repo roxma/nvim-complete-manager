@@ -100,7 +100,6 @@ class Source(Base):
                         icase=1,
                         dup=1,
                         menu=complete.get('type',''),
-                        sourceName = "Go",
                         kind = complete.get('class',''),
                         # info=complete.get('doc',''),
                         )

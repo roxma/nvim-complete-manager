@@ -326,7 +326,7 @@ func! cm#_core_complete(context, startcol, matches, not_changed, snippets)
 
     let s:context = a:context
     let s:startcol = a:startcol
-    let l:padcmd = 'extend(v:val,{"abbr":printf("%".strdisplaywidth(v:val["padding"])."s%s","",v:val["abbr"]),"kind":cm_icon#_iconSupport(get(v:val,"sourceName","NoName"),get(v:val,"kind",""))})'
+    let l:padcmd = 'extend(v:val,{"abbr":printf("%".strdisplaywidth(v:val["padding"])."s%s","",v:val["abbr"])})'
     let s:matches = map(a:matches, l:padcmd)
     let g:cm#snippet#snippets = a:snippets
 
