@@ -29,6 +29,9 @@ let g:cm_icon_kind_dict = {
             \   "tmux":{
             \           "tmux":"",
             \           },
+            \   "cm-tags":{
+            \           "Tag":"tag",
+            \           },
             \   "Go":{
             \           "fun":"",
             \           },
