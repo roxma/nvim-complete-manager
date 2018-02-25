@@ -170,7 +170,7 @@ class Source(Base):
             e['menu'] = e['word'] + hint
             e['word'] = e['_rest_of_line']
             
-            # devicon support
+            # icon support
             e['kind'] = "kw"
             matches.insert(1,e)
 

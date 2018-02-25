@@ -1,5 +1,5 @@
 "=============================================================================
-" cm_devicon.vim   devicom support for ncm
+" cm_icon.vim   devicom support for ncm
 " Copyright (c) 2018 MaiLunjiye 
 " Author: MaiLunjiye <mailunjiye@gmail.com>
 " License: MIT

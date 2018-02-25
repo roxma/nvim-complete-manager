@@ -1,5 +1,5 @@
 "=============================================================================
-" cm_devIcon.vim   devicom support for ncm
+" cm_icon.vim   devicom support for ncm
 " Copyright (c) 2018 MaiLunjiye 
 " Author: MaiLunjiye <mailunjiye@gmail.com>
 " License: MIT
@@ -7,7 +7,7 @@
 
 let g:cm_icon_kind_model = 2
 
-" devicon support
+" icon support
 " {
 "   sourceName:{
 "       "kindname1":"nerdfont",
