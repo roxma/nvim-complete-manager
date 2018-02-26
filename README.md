@@ -48,7 +48,8 @@ completion in html style/script tag.
    [neosnippet.vim](https://github.com/Shougo/neosnippet.vim) or
    [vim-snipmate](https://github.com/garbas/vim-snipmate).
 6. [Nerdfont icon support](https://github.com/roxma/nvim-completion-manager/issues/185) (by MaiLunjiye),
-issues is welcome at this [fork](https://github.com/MaiLunJiye/nvim-completion-manager)
+issues is welcome at this [fork](https://github.com/MaiLunJiye/nvim-completion-manager).
+    Give me some recommendations about icon in [here](https://github.com/MaiLunJiye/nvim-completion-manager/issues/1)
 
 
 ## Scoping Sources:
