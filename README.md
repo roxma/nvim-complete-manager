@@ -47,6 +47,8 @@ completion in html style/script tag.
    [Ultisnips](https://github.com/SirVer/ultisnips),
    [neosnippet.vim](https://github.com/Shougo/neosnippet.vim) or
    [vim-snipmate](https://github.com/garbas/vim-snipmate).
+6. [Nerdfont icon support](https://github.com/roxma/nvim-completion-manager/issues/185) (by MaiLunjiye),
+issues is welcome at this [fork](https://github.com/MaiLunJiye/nvim-completion-manager)
 
 
 ## Scoping Sources:
