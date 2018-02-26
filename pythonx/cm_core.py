@@ -600,7 +600,8 @@ class CoreHandler(cm.Base):
         # fix some text
         for e in result:
             # support nerdfont icon
-            e['kind'] = self.nvim.call('cm_icon#_iconSupport',name,e['kind'])
+            if 'kind' in e:
+                e['kind'] = self.nvim.call('cm_icon#_iconSupport',name,e['kind'])
 
             if 'menu' not in e:
                 if 'info' in e and e['info'] and len(e['info'])<50:
