@@ -169,6 +169,9 @@ class Source(Base):
                 hint += ' ...'
             e['menu'] = e['word'] + hint
             e['word'] = e['_rest_of_line']
+            
+            # icon support
+            e['kind'] = "kw"
             matches.insert(1,e)
 
         # if not matches:

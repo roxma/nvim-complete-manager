@@ -37,7 +37,7 @@ class Source(Base):
                     fields = line.split("\t")
                     if len(fields)<2:
                         continue
-                    tags[fields[0]] = dict(word=fields[0],menu='Tag: '+fields[1])
+                    tags[fields[0]] = dict(word=fields[0],menu=fields[1],kind='Tag')
             except Exception as ex:
                 logger.exception('binary_search_lines_by_prefix exception: %s', ex)
 
