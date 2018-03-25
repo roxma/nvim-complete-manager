@@ -1,6 +1,4 @@
 
-let g:cm#snippet#snippets = []
-
 func! cm#snippet#init()
 	if ((!exists('g:cm_completed_snippet_enable') || g:cm_completed_snippet_enable) && !exists('g:cm_completed_snippet_engine'))
         if exists('g:loaded_neosnippet')
@@ -31,50 +29,34 @@ endfunc
 
 func! cm#snippet#completed_is_snippet()
     call cm#snippet#check_and_inject()
-    return get(v:completed_item, 'is_snippet', 0)
+    let completed_extra = s:get_completed_extra()
+
+    " By some reason, 'is_snippet' is not passed when dealing with on-fly
+    " snippets (i.e. expand function parameters). So check both 'snippet'
+    " and 'is_snippet' columns until proper propagation of 'is_snippet' is
+    " fixed.
+    if has_key(completed_extra, 'snippet')
+      return completed_extra.snippet != ''
+    endif
+    return get(completed_extra, 'is_snippet', 0)
 endfunc
 
 func! cm#snippet#check_and_inject()
+    let completed_extra = s:get_completed_extra()
 
-    if empty(v:completed_item) || !has_key(v:completed_item,'info') || empty(v:completed_item.info) || has_key(v:completed_item, 'is_snippet')
-		return ''
-	endif
-
-	let l:last_line = split(v:completed_item.info,'\n')[-1]
-	if l:last_line[0:len('snippet@')-1]!='snippet@'
-        let v:completed_item.is_snippet = 0
-		return ''
-	endif
-
-	let l:snippet_id = str2nr(l:last_line[len('snippet@'):])
-	if l:snippet_id>=len(g:cm#snippet#snippets) || l:snippet_id<0
-        let v:completed_item.is_snippet = 0
-		return ''
-	endif
-
-	" neosnippet recognize the snippet field of v:completed_item. Also useful
-	" for checking. Kind of a hack.
-    " TODO: skip empty g:cm#snippet#snippets[l:snippet_id]['snippet']
-	let v:completed_item.snippet = g:cm#snippet#snippets[l:snippet_id]['snippet']
-    let v:completed_item.snippet_word = g:cm#snippet#snippets[l:snippet_id]['word']
-    let v:completed_item.is_snippet = 1
-
-    if v:completed_item.snippet == ''
+    if empty(v:completed_item) || !has_key(v:completed_item,'info') || empty(v:completed_item.info) || get(completed_extra, 'snippet', '') == ''
         return ''
     endif
 
-	if g:cm_completed_snippet_engine == 'ultisnips'
-
+    if g:cm_completed_snippet_engine == 'ultisnips'
         call s:ultisnips_inject()
 
     " elseif g:cm_completed_snippet_engine == 'snipmate'
         " nothing needs to be done for snipmate
 
     elseif g:cm_completed_snippet_engine == 'neosnippet'
-
         call s:neosnippet_inject()
-
-	endif
+    endif
 
     return ''
 endfunc
@@ -90,7 +72,8 @@ func! s:ultisnips_inject()
         augroup END
     endif
     exec g:_uspy 'UltiSnips_Manager._added_snippets_source._snippets["ncm"]._snippets = []'
-    call UltiSnips#AddSnippetWithPriority(v:completed_item.snippet_word, v:completed_item.snippet, '', 'i', b:_cm_us_filetype, 1)
+    let completed_extra = s:get_completed_extra()
+    call UltiSnips#AddSnippetWithPriority(completed_extra.snippet_word, completed_extra.snippet, '', 'i', b:_cm_us_filetype, 1)
 endfunc
 
 func! s:neosnippet_init()
@@ -105,23 +88,26 @@ endfunc
 
 func! s:neosnippet_inject()
     let snippets = neosnippet#variables#current_neosnippet()
+    let completed_extra = s:get_completed_extra()
 
     let item = {}
     let item['options'] = { "word": 1, "oneshot": 0, "indent": 0, "head": 0}
-    let item['word'] = v:completed_item.snippet_word
-    let item['snip'] = v:completed_item.snippet
+    let item['word'] = completed_extra.snippet_word
+    let item['snip'] = completed_extra.snippet
     let item['description'] = ''
 
-    let snippets.snippets[v:completed_item.snippet_word] = item
+    let snippets.snippets[completed_extra.snippet_word] = item
 
     " remember for cleanup
-    let s:neosnippet_injected = add(s:neosnippet_injected, v:completed_item.snippet_word)
+    let s:neosnippet_injected = add(s:neosnippet_injected, completed_extra.snippet_word)
 endfunc
 
 func! s:neosnippet_cleanup()
     let cs = neosnippet#variables#current_neosnippet()
     for word in s:neosnippet_injected
-        unlet cs.snippets[word]
+        if has_key(cs.snippets, word)
+          unlet cs.snippets[word]
+        endif
     endfor
     let s:neosnippet_injected = []
 endfunc
@@ -132,10 +118,20 @@ func! s:snipmate_init()
 endfunc
 
 func! cm#snippet#_snipmate_snippets(scopes, trigger, result)
-	if empty(v:completed_item) || get(v:completed_item, 'snippet', '') == ''
-		return
-	endif
+    let completed_extra = s:get_completed_extra()
+    if empty(v:completed_item) || get(completed_extra, 'snippet', '') == ''
+        return
+    endif
     " use version 1 snippet syntax
-	let a:result[v:completed_item.snippet_word] = {'default': [v:completed_item.snippet, 1] }
+    let a:result[completed_extra.snippet_word] = {'default': [completed_extra.snippet, 1] }
 endfunc
 
+func! s:get_completed_extra()
+    if get(v:completed_item, 'user_data', '') !=# ''
+      let user_data = json_decode(v:completed_item.user_data)
+      if type(user_data) == v:t_dict
+        return user_data
+      endif
+    endif
+    return {}
+endfunc
