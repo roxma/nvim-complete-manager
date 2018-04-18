@@ -664,7 +664,12 @@ class CoreHandler(cm.Base):
                     else:
                         m['menu'] = '[ ] ' + m['menu']
 
-        self.nvim.call('cm#_core_complete', ctx, startcol, matches, not_changed, snippets)
+                    user_data = {}
+                    for key in {'snippet', 'snippet_word', 'is_snippet'}.intersection(m.keys()):
+                        user_data[key] = m[key]
+                    m['user_data'] = json.dumps(user_data)
+
+        self.nvim.call('cm#_core_complete', ctx, startcol, matches, not_changed)
         self._last_matches = matches
         self._last_startcol = startcol
 

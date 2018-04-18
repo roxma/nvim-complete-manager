@@ -303,7 +303,7 @@ func! cm#_channel_cleanup(info)
 
 endfunc
 
-func! cm#_core_complete(context, startcol, matches, not_changed, snippets)
+func! cm#_core_complete(context, startcol, matches, not_changed)
 
     if s:should_skip()
         return
@@ -328,7 +328,6 @@ func! cm#_core_complete(context, startcol, matches, not_changed, snippets)
     let s:startcol = a:startcol
     let l:padcmd = 'extend(v:val,{"abbr":printf("%".strdisplaywidth(v:val["padding"])."s%s","",v:val["abbr"])})'
     let s:matches = map(a:matches, l:padcmd)
-    let g:cm#snippet#snippets = a:snippets
 
     call feedkeys(g:cm_completekeys, 'i')
 
