@@ -46,6 +46,8 @@ let g:cm_refresh_length = get(g:, 'cm_refresh_length', get(g:, 'cm_refresh_defau
 
 let g:cm_completeopt=get(g:,'cm_completeopt','menu,menuone,noinsert,noselect')
 
+let g:cm_filepath_strip_extension = get(g:,'cm_filepath_strip_extension', 0)
+
 au User CmSetup if exists('g:did_plugin_ultisnips') | call cm#sources#ultisnips#init() | endif
 au User CmSetup if exists('g:loaded_neosnippet') | call cm#sources#neosnippet#init() | endif
 au User CmSetup if exists('g:snipMateSources') | call cm#sources#snipmate#init() | endif
